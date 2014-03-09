@@ -7,3 +7,4 @@ validation_key           '/etc/chef-server/chef-validator.pem'
 chef_server_url          'https://saasmaster.saasservicer.h2.internal.cloudapp.net:443'
 syntax_check_cache_path  '/root/chef-repo/.chef/syntax_check_cache'
 cookbook_path [ '/root/chef-repo/cookbooks' ]
+knife[:azure_publish_settings_file] = "myazure.publishsettings"
