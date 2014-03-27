@@ -38,10 +38,6 @@ when "7"
   tarball_url = node['java']['jdk']['7'][arch]['url']
   tarball_checksum = node['java']['jdk']['7'][arch]['checksum']
   bin_cmds = node['java']['jdk']['7']['bin_cmds']
-when "8"
-  tarball_url = node['java']['jdk']['8'][arch]['url']
-  tarball_checksum = node['java']['jdk']['8'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['8']['bin_cmds']
 end
 
 if tarball_url =~ /example.com/
@@ -60,6 +56,3 @@ java_ark "jdk" do
   action :install
 end
 
-if node['java']['set_default'] and platform_family?('debian')
-  include_recipe 'java::default_java_symlink'
-end
