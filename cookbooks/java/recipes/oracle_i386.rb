@@ -17,18 +17,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-unless node.recipe?('java::default')
-  Chef::Log.warn("Using java::default instead is recommended.")
-
-# Even if this recipe is included by itself, a safety check is nice...
-  if node['java']['java_home'].nil? or node['java']['java_home'].empty?
-    include_recipe "java::set_attributes_from_version"
-  end
-end
-
 java_home = node['java']["java_home"]
 
-case node['java']['jdk_version'].to_s
+case node['java']['jdk_version']
 when "6"
   tarball_url = node['java']['jdk']['6']['i586']['url']
   tarball_checksum = node['java']['jdk']['6']['i586']['checksum']
@@ -39,7 +30,12 @@ when "7"
   bin_cmds = node['java']['jdk']['7']['bin_cmds']
 end
 
-include_recipe "java::set_java_home"
+ruby_block  "set-env-java-home" do
+  block do
+    ENV["JAVA_HOME"] = java_home
+  end
+  not_if { ENV["JAVA_HOME"] == java_home }
+end
 
 yum_package "glibc" do
   arch "i686"
@@ -48,9 +44,8 @@ end
 
 java_ark "jdk-alt" do
   url tarball_url
-  default node['java']['set_default']
   checksum tarball_checksum
-  app_home java_home
+  app_home java_home 
   bin_cmds bin_cmds
   action :install
   default false
