@@ -1,0 +1,5 @@
+{
+	"id": "parameters",
+	"server_name": "saasslaver",
+	"hadoop_master": "saasslaver1"
+}
