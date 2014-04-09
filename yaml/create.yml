@@ -1,0 +1,6 @@
+cookbooks:
+- init_root:
+nodes:
+- azure 3:
+    run_list: recipe[init_root::default]
+    options: --azure-source-image b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-12_04_2-LTS-amd64-server-20130624-en-us-30GB --azure-vm-name azure-hadoopagain-3-{{n}} --azure-vm-size Small --ssh-user jinchao --ssh-password SAASworkflow123 --azure-connect-to-existing-dns --azure-dns-name saasservicer --azure-subnet-name Subnet-1 --azure-storage-account saasstorager --azure-availability-set saasseter --azure-affinity-group saas

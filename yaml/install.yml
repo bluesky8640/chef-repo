@@ -1,0 +1,37 @@
+cookbooks:
+- hadoop:
+- java:
+nodes:
+- azure-hadoopagain-3-1.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::default],recipe[hadoop::ssh_public_keys]
+    options: --node-name azure-hadoopagain-3-1 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-2.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::default],recipe[hadoop::ssh_public_keys]
+    options: --node-name azure-hadoopagain-3-2 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-3.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::default],recipe[hadoop::ssh_public_keys]
+    options: --node-name azure-hadoopagain-3-3 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-1.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::authorized_nodes],recipe[hadoop::setup_hosts]
+    options: --node-name azure-hadoopagain-3-1 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-2.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::authorized_nodes],recipe[hadoop::setup_hosts]
+    options: --node-name azure-hadoopagain-3-2 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-3.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::authorized_nodes],recipe[hadoop::setup_hosts]
+    options: --node-name azure-hadoopagain-3-3 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-1.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::setup_hadoop]
+    options: --node-name azure-hadoopagain-3-1 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-2.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::setup_hadoop]
+    options: --node-name azure-hadoopagain-3-2 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-3.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::setup_hadoop]
+    options: --node-name azure-hadoopagain-3-3 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-1.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::setup_master]
+    options: --node-name azure-hadoopagain-3-1 --ssh-user root --ssh-password SAASworkflow123 --sudo
+- azure-hadoopagain-3-1.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[hadoop::start_hadoop]
+    options: --node-name azure-hadoopagain-3-1 --ssh-user root --ssh-password SAASworkflow123 --sudo
