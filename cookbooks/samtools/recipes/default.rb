@@ -59,7 +59,7 @@ end
 
 # Set Samtools home
 log "Setting Samtools home"
-set_samtools_home = Mixlib::ShellOut.new("echo 'export PATH=#{node['bio_soft_home']}/#{node['samtools_dir']}:$PATH' >> /etc/profile", :user => "root", :cwd => "/root")
+set_samtools_home = Mixlib::ShellOut.new("echo 'export PATH=#{node['bio_soft_home']}/#{node['samtools_dir']}:$PATH' >> /etc/profile && source /etc/profile", :user => "root", :cwd => "/root")
 set_samtools_home.run_command
 
 if !(set_samtools_home!)

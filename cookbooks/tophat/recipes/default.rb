@@ -33,7 +33,7 @@ extract_tophat.run_command
 
 # Set Tophat home
 log "Setting Tophat home"
-set_tophat_home = Mixlib::ShellOut.new("echo 'export PATH=#{node['bio_soft_home']}/#{node['tophat_dir']}:$PATH' >> /etc/profile", :user => "root", :cwd => "/root")
+set_tophat_home = Mixlib::ShellOut.new("echo 'export PATH=#{node['bio_soft_home']}/#{node['tophat_dir']}:$PATH' >> /etc/profile && source /etc/profile", :user => "root", :cwd => "/root")
 set_tophat_home.run_command
 
 if !(set_tophat_home.error!)

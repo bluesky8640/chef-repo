@@ -36,7 +36,7 @@ extract_bowtie.run_command
 
 # Set Bowtie home
 log "Setting Bowtie home"
-set_bowtie_home = Mixlib::ShellOut.new("echo 'export PATH=#{node['bio_soft_home']}/#{node['bowtie_dir']}:$PATH' >> /etc/profile", :user => "root", :cwd => "/root")
+set_bowtie_home = Mixlib::ShellOut.new("echo 'export PATH=#{node['bio_soft_home']}/#{node['bowtie_dir']}:$PATH' >> /etc/profile && source /etc/profile", :user => "root", :cwd => "/root")
 set_bowtie_home.run_command
 
 if !(set_bowtie_home.error!)
