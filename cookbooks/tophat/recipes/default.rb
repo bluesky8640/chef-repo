@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "bowtie::default"
+include_recipe "samtools::default"
+
 require 'chef/shell_out'
 
 # Need 'Bio-soft home' created
