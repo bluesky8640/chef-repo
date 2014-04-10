@@ -17,12 +17,13 @@ end
 
 # Need 'Bio-soft home' created
 log "Creating Bio-soft home"
-directory node['bio_soft_home'] do
+e = directory node['bio_soft_home'] do
     owner node['current_user']
     group node['current_user']
     mode 00755
     action :create
 end
+e.run_action(:create)
 
 # Download Bowtie package
 log "Downloading Bowtie package"
