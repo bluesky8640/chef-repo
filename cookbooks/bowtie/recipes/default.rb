@@ -9,13 +9,13 @@
 
 require 'chef/shell_out'
 
-# Need zip installed
+# Need 'zip' installed
 log "Installing zip"
 package "zip" do
     action :install
 end
 
-# Need Bio-soft home created
+# Need 'Bio-soft home' created
 log "Creating Bio-soft home"
 directory node['bio_soft_home'] do
     owner node['current_user']
@@ -40,7 +40,7 @@ set_bowtie_home = Mixlib::ShellOut.new("echo 'export PATH=#{node['bio_soft_home'
 set_bowtie_home.run_command
 
 if !(set_bowtie_home.error!)
-    log "Bowtie home was successfully set"
+    log "Set bowtie home ok"
 else 
-    log "Bowtie home was not set"
+    log "Set bowtie home failed"
 end
