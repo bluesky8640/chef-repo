@@ -7,14 +7,17 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# include_recipe "zip::default"
+
 require 'chef/shell_out'
 
-# Print attributes
+
 log "System user: #{node['system_user']}"
 log "Bio soft home: #{node['bio_soft_home']}"
 log "Bowtie package uri: #{node['bowtie_package_uri']}"
 log "Bowtie package: #{node['bowtie_package']}"
 log "Bowtie dir: #{node['bowtie_dir']}"
+
 
 # Need 'zip'  and 'unzip' installed
 log "Installing zip and unzip"
@@ -49,9 +52,30 @@ log "Settting Bowtie home"
 bash "set bowtie home" do
 	user "root"
 	group "root"
-	cwd "/root"
+	cwd "/tmp"
 	code <<-EOF
 		echo 'export PATH=#{node['bio_soft_home']}/#{node['bowtie_dir']}:$PATH' >> /etc/profile
 		source /etc/profile
 	EOF
 end
+
+download_bowtie = Mixlib::ShellOut.new("wget #{node['bowtie_package_uri']}", :user => node['system_user'], :group => node['system_user'], :cwd => '/tmp')
+download_bowtie.run_command
+
+# Extract Bowtie package
+log "Extracting Bowtie package"
+extract_bowtie = Mixlib::ShellOut.new("unzip #{node['bowtie_package']} -d #{node['bio_soft_home']}", :user => node['system_user'], :group => node['system_user'], :cwd => '/tmp')
+extract_bowtie.run_command
+
+# Set Bowtie home
+log "Setting Bowtie home"
+set_bowtie_home = Mixlib::ShellOut.new("echo 'export PATH=#{node['bio_soft_home']}/#{node['bowtie_dir']}:$PATH' >> /etc/profile && source /etc/profile", :user => "root", :cwd => "/root")
+set_bowtie_home.run_command
+
+'''
+if !(set_bowtie_home.error!)
+    log "Set bowtie home ok"
+else 
+    log "Set bowtie home failed"
+end
+'''
