@@ -44,13 +44,15 @@ bash "install bowtie" do
 	EOF
 end
 
-# Set Bowtie home
-log "Settting Bowtie home"
-bash "set bowtie home" do
+# Set Bowtie path
+log "Setting Bowtie path"
+bash "set bowtie path" do
 	user "root"
 	group "root"
-	cwd "/root"
+	cwd "/usr/bin"
 	code <<-EOF
-		echo 'export PATH=#{node['bio_soft_home']}/#{node['bowtie_dir']}:$PATH' >> /etc/profile && source /etc/profile
+		ln -s #{node['bio_soft_home']}/#{node['bowtie_dir']}/bowtie
+		ln -s #{node['bio_soft_home']}/#{node['bowtie_dir']}/bowtie-build
+		ln -s #{node['bio_soft_home']}/#{node['bowtie_dir']}/bowtie-inspect
 	EOF
 end

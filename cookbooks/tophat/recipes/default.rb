@@ -40,13 +40,13 @@ bash "install tophat" do
 	EOF
 end
 
-# Set Tophat home
-log "Settting Tophat home"
-bash "set tophat home" do
+# Set Tophat path
+log "Settting Tophat path"
+bash "set tophat path" do
 	user "root"
 	group "root"
-	cwd "/root"
+	cwd "/usr/bin"
 	code <<-EOF
-		echo 'export PATH=#{node['bio_soft_home']}/#{node['tophat_dir']}:$PATH' >> /etc/profile && source /etc/profile
+		ln -s #{node['bio_soft_home']}/#{node['tophat_dir']}/tophat
 	EOF
 end

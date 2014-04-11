@@ -60,13 +60,13 @@ bash "make samtools" do
 	EOF
 end
 
-# Set Samtools home
-log "Settting Samtools home"
-bash "set samtools home" do
+# Set Samtools path
+log "Settting Samtools path"
+bash "set samtools path" do
 	user "root"
 	group "root"
-	cwd "/root"
+	cwd "/usr/bin"
 	code <<-EOF
-		echo 'export PATH=#{node['bio_soft_home']}/#{node['samtools_dir']}:$PATH' >> /etc/profile && source /etc/profile
+		ln -s #{node['bio_soft_home']}/#{node['samtools_dir']}/samtools
 	EOF
 end
