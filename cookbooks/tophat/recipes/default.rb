@@ -47,7 +47,6 @@ bash "set tophat home" do
 	group "root"
 	cwd "/root"
 	code <<-EOF
-		echo 'export PATH=#{node['bio_soft_home']}/#{node['tophat_dir']}:$PATH' >> /etc/profile
-		source /etc/profile
+		echo 'export PATH=#{node['bio_soft_home']}/#{node['tophat_dir']}:$PATH' >> /etc/profile && source /etc/profile
 	EOF
 end
