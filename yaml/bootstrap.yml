@@ -1,0 +1,10 @@
+cookbooks:
+- samtools:
+- bowtie:
+- cufflinks:
+- tophat:
+nodes:
+- azure-hadoopagain-3-1.saasservicer.h2.internal.cloudapp.net:
+    run_list: recipe[tophat::default],recipe[cufflinks::default]
+    options: --node-name azure-hadoopagain-3-1 --ssh-user root --ssh-password SAASworkflow123 --sudo
+

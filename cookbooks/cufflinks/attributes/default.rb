@@ -6,7 +6,7 @@ default['bio_soft_home'] = '/bio-soft'
 
 
 # Cufflinks package URI
-default['cufflinks_package_uri'] = 'http://cufflinks.cbcb.umd.edu/downloads/cufflinks-2.2.0.Linux_x86_64.tar.gz'
+default['cufflinks_package_uri'] = 'ftp://saasslave04/cufflinks-2.2.0.Linux_x86_64.tar.gz'
 
 # Cufflinks package
 default['cufflinks_package'] = 'cufflinks-2.2.0.Linux_x86_64.tar.gz'
