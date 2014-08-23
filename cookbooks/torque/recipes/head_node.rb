@@ -18,6 +18,8 @@
 
 include_recipe 'torque::default'
 
+require 'chef/shell_out'
+
 # Install torque server and client packages
 %w(
   torque-server
@@ -64,8 +66,12 @@ when 'rhel'
 end
 
 # Set up the compute nodes
-
-cnodes = search(:node, "recipes:torque\\:\\:compute_node AND chef_environment:#{node.environment}" )
+hostname_elements = (node[:hostname]).split("-")
+node.set['cluster_name'] = hostname_elements[1]
+log "Cluster Name: #{node['cluster_name']}"
+#cnodes = search(:node, "recipes:torque\\:\\:compute_node AND chef_environment:#{node.environment}" )
+cnodes = search(:node, "name:*#{node['cluster_name']}*").sort_by { |h| h[:hostname] }
+cnodes.delete_if { |h| h[:hostname] == node[:hostname] }
 template "#{node['torque']['var_dir']}/nodes" do
   source 'compute_nodes.erb'
   owner 'root'
@@ -130,3 +136,11 @@ service "#{service_pbs_sched}" do
   action [:start, :enable]
   supports :start => true, :stop => true, :restart => true
 end
+
+
+execute 'set_default_queue' do
+	user "root"
+	group "root"
+	command "qmgr -c \"set server default_queue = batch\""
+end
+

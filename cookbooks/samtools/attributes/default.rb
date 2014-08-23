@@ -1,5 +1,5 @@
 # System user
-default['system_user'] = 'hadoop'
+default['system_user'] = 'jinchao'
 
 # Bio-soft home
 default['bio_soft_home'] = '/bio-soft'

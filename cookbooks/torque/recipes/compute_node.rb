@@ -32,7 +32,11 @@ when 'rhel'
 end
 
 # Set up the hostname of the torque server
-hnodes = search(:node, "recipes:torque\\:\\:head_node AND chef_environment:#{node.environment}")
+hostname_elements = (node[:hostname]).split("-")
+node.set['torque_master'] = hostname_elements[0] + "-" + hostname_elements[1] + "-" + hostname_elements[2] + "-" + "1" 
+log "Torque Master: #{node['torque_master']}"
+#hnodes = search(:node, "recipes:torque\\:\\:head_node AND chef_environment:#{node.environment}")
+hnodes = search(:node, "name:*#{node['torque_master']}*").sort_by { |h| h[:hostname] } 
 
 template "#{node['torque']['etc_dir']}/server_name" do
   source 'server_name.erb'
