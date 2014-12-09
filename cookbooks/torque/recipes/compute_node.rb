@@ -62,6 +62,7 @@ if platform_family?('rhel')
   end
 end
 
+=begin
 # Set up authorized_key
 file "/home/#{node.torque.user}/.ssh/authorized_keys" do
   content "#{hnodes[0].torque.publickey}"
@@ -70,6 +71,7 @@ file "/home/#{node.torque.user}/.ssh/authorized_keys" do
   mode 00644
   notifies :restart, "service[#{service_mom}]", :immediately
 end
+=end
 
 # Set up torque mom service
 service "#{service_mom}" do

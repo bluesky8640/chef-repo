@@ -12,7 +12,8 @@ end
 default['torque']['publickey'] = 'not found'
 
 # Torque user
-default['torque']['user'] = 'pbs'
+#default['torque']['user'] = 'pbs'
+default['torque']['user'] = 'jinchao'
 
 # Queue setup
 default['torque']['manager_host'] = node['fqdn']

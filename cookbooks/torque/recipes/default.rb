@@ -29,6 +29,7 @@ package pkg do
   action :install
 end
 
+=begin
 # Set up user
 user "#{node.torque.user}" do
   action :create
@@ -59,3 +60,4 @@ cookbook_file "/home/#{node.torque.user}/.ssh/config" do
   group "#{node.torque.user}"
   action :create
 end
+=end

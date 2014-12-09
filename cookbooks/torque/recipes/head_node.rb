@@ -107,6 +107,7 @@ execute 'default_queue_setup' do
   end
 end
 
+=begin
 # Generating ssh key pair and fix permissions
 execute 'generate_ssh_keys' do
     user "#{node.torque.user}"
@@ -124,6 +125,7 @@ ruby_block 'update_pubkey' do
     end
   end
 end
+=end
 
 service "#{service_pbs_server}" do
   pattern 'pbs_server'  
